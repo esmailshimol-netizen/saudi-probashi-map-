@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>সৌদি ডিল হাব | এসক্রো ও সিকিউর মার্কেটপ্লেস</title>
+  <meta name="description" content="সৌদি ডিল হাব - সৌদি আরবের প্রবাসীদের জন্য নিরাপদ কাজ লেনদেন ও এসক্রো মিডিয়েশন প্ল্যাটফর্ম।">
+
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+    body {
+      background-color: #0b1f17;
+      color: #2c3e50;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: #f8faf9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    /* Mandatory Login Wall Modal */
+    .login-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .login-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border: 2px solid #d4af37;
+    }
+    .login-box h2 {
+      color: #093824;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .login-box p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 18px;
+    }
+
+    /* App Header */
+    .app-header {
+      background: linear-gradient(135deg, #093824 0%, #062618 100%);
+      color: #ffffff;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid #d4af37;
+    }
+    .app-header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f1d579;
+    }
+    .app-header .tagline {
+      font-size: 11px;
+      color: #a3e4d7;
+    }
+    .badge-escrow {
+      background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+      color: #fff;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* Navigation Tabs */
+    .app-tabs {
+      display: flex;
+      background: #0d422c;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 2px;
+      text-align: center;
+      color: #92cbb3;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .tab-btn.active {
+      color: #f1d579;
+      border-bottom-color: #d4af37;
+      background: rgba(255,255,255,0.05);
+      font-weight: 700;
+    }
+    .content-area {
+      flex: 1;
+      padding: 15px;
+      padding-bottom: 90px;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Admin-Only Sections (Hidden by default) */
+    .admin-only-section {
+      display: none;
+    }
+    .tracker-bar {
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    /* Security Warning Box */
+    .warning-box {
+      background: #fff3cd;
+      border: 1px solid #ffe8a1;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 12px;
+      color: #856404;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .warning-box strong {
+      color: #bd2130;
+    }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e1e8e5;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #093824;
+      margin-bottom: 5px;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .price-tag {
+      display: block;
+      background: #eaf5f0;
+      color: #093824;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      border: 1px solid #b7e1ce;
+      margin-bottom: 8px;
+    }
+    .fee-info {
+      font-size: 11px;
+      color: #555;
+      background: #fdf8e2;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #f3e5ab;
+      margin-bottom: 10px;
+    }
+    .status-badge {
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      float: right;
+      font-weight: 700;
+    }
+    .status-open { background: #e3f2fd; color: #1565c0; }
+    .status-escrow { background: #fff3cd; color: #856404; border: 1px solid #ffe8a1; }
+
+    .id-tag {
+      font-size: 11px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    /* Wallet Card */
+    .wallet-card {
+      background: linear-gradient(135deg, #093824 0%, #115739 100%);
+      color: #ffffff;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #d4af37;
+      text-align: center;
+    }
+    .wallet-balance {
+      font-size: 26px;
+      font-weight: 700;
+      color: #f1d579;
+      margin: 8px 0;
+    }
+    .btn-withdraw {
+      background: linear-gradient(135deg, #d4af37 0%, #b89218 100%);
+      color: #000;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #093824;
+      margin-bottom: 4px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    .btn-main {
+      width: 100%;
+      background: linear-gradient(135deg, #093824 0%, #115739 100%);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-deal {
+      background: linear-gradient(135deg, #d4af37 0%, #b89218 100%);
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    /* Footer Credit */
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-top: 1px solid #e1e8e5;
+      padding: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: #555;
+      z-index: 99;
+    }
+    .app-footer strong {
+      color: #093824;
+    }
+    .admin-toggle-btn {
+      color: #093824;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mandatory Login Wall Modal -->
+  <div class="login-modal-overlay" id="loginModal">
+    <div class="login-box">
+      <h2>🇸🇦 সৌদি ডিল হাব</h2>
+      <p>নিরাপদ সার্ভিস ডিলিংয়ে প্রবেশ করতে আপনার মোবাইল/হোয়াটসঅ্যাপ নম্বর দিন:</p>
+      
+      <form onsubmit="saveUserPhone(event)">
+        <div class="form-group">
+          <label>মোবাইল / হোয়াটসঅ্যাপ নম্বর</label>
+          <input type="tel" id="userPhoneInput" placeholder="+966 5X XXX XXXX" required>
+        </div>
+        <button type="submit" class="btn-main">প্রবেশ করুন 🚀</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- App Header -->
+    <div class="app-header">
+      <div>
+        <h1>সৌদি ডিল হাব</h1>
+        <div class="tagline">এসক্রো সিকিউর মার্কেটপ্লেস</div>
+      </div>
+      <div class="badge-escrow">🛡️ ফান্ড লক প্রটেকশন</div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="app-tabs">
+      <div class="tab-btn active" onclick="switchTab('jobsTab', this)">📋 কাজ খুঁজুন</div>
+      <div class="tab-btn" onclick="switchTab('postTab', this)">➕ কাজ দিন</div>
+      <div class="tab-btn" onclick="switchTab('dealsTab', this)">🤝 এসক্রো ডিল</div>
+      <div class="tab-btn" onclick="switchTab('rulesTab', this)">⚖️ শর্তাবলী</div>
+    </div>
+
+    <div class="content-area">
+      
+      <!-- Admin-Only Visitor Tracker Bar -->
+      <div id="adminVisitorBar" class="admin-only-section">
+        <div class="tracker-bar">
+          <span>👁️ প্রকৃত ইউজার ভিজিট: <strong id="visitorCount">১</strong> জন</span>
+          <span id="adminBadge">👑 <strong style="color:#d4af37;">অ্যাডমিন প্যানেল</strong></span>
+        </div>
+      </div>
+
+      <!-- Security Notice -->
+      <div class="warning-box">
+        ⚠️ <strong>এসক্রো ও পেমেন্ট পলিসি:</strong> কাজ নেওয়ার সময় ১০% ফান্ড এসক্রো গ্যারান্টি হিসেবে অ্যাডমিনের অফিশিয়াল STC Pay / Bank অ্যাকাউন্টে পেমেন্ট করে লক করতে হবে। কাজ সফল হলে প্রফিট রেখে বাকিটা পেমেন্ট রিলিজ হবে।
+      </div>
+
+      <!-- Tab 1: Job List -->
+      <div id="jobsTab" class="tab-content active">
+        <div id="jobList">
+          <p id="noJobMsg" style="font-size:13px; color:#777; text-align:center; padding:30px 0;">বর্তমানে কোনো কাজের বিজ্ঞাপন নেই। "কাজ দিন" ট্যাব থেকে নতুন কাজ পোস্ট করুন।</p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Post Job -->
+      <div id="postTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">নতুন কাজ বা সার্ভিস পোস্ট করুন</div>
+          <div class="card-subtitle">বেতন, সার্ভিস চার্জ এবং ভেরিফাইড আইডি বাধ্যতামূলক</div>
+          
+          <form id="jobForm" onsubmit="handlePostJob(event)">
+            <div class="form-group">
+              <label>কাজের শিরোনাম</label>
+              <input type="text" id="jobTitle" placeholder="যেমন: বারিস্টা / ড্রাইভার / ক্লিনিং সার্ভিস" required>
+            </div>
+            <div class="form-group">
+              <label>সৌদির শহর</label>
+              <select id="jobCity">
+                <option value="রিয়াদ">রিয়াদ</option>
+                <option value="জেদ্দা">জেদ্দা / মাক্কাহ</option>
+                <option value="তবুক">তবুক</option>
+                <option value="মদিনা">মদিনা</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>মাসিক বেতন বা কাজের মোট বাজেট (রিয়াল)</label>
+              <input type="number" id="jobBudget" placeholder="যেমন: ২৫০০" required>
+            </div>
+            <div class="form-group">
+              <label>আপনার আকামা অথবা পাসপোর্ট নম্বর (বাধ্যতামূলক 🔒)</label>
+              <input type="text" id="ownerID" placeholder="১০ ডিজিটের আকামা বা পাসপোর্ট নম্বর দিন" required>
+            </div>
+            <div class="form-group">
+              <label>কাজের বিবরণ ও শর্তাবলী</label>
+              <textarea id="jobDesc" rows="3" placeholder="কাজের সময় ও পেমেন্ট মাধ্যম ডিটেইলস লিখুন..." required></textarea>
+            </div>
+            <button type="submit" class="btn-main">কাজের সার্ভিস প্রকাশ করুন 🚀</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 3: Wallet & Escrow Deals -->
+      <div id="dealsTab" class="tab-content">
+        <!-- Hidden Admin Wallet: Visible ONLY to Admin via secret pass -->
+        <div id="adminWalletSection" class="admin-only-section">
+          <div class="wallet-card">
+            <div style="font-size:12px; color:#a3e4d7;">👑 অ্যাডমিন ইন-অ্যাপ প্রফিট ওয়ালেট (গোপন প্যানেল)</div>
+            <div class="wallet-balance" id="adminBalance">০.০০ রিয়াল</div>
+            <div style="font-size:11px; color:#f1d579; margin-bottom:8px;">(সফল ডিল থেকে অর্জিত ১০% প্ল্যাটফর্ম কমিশন)</div>
+            <button class="btn-withdraw" onclick="withdrawProfit()">কমিশন উইথড্র / Cashout 💰</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">এসক্রো ফান্ড লক ও প্রসেসিং ডিল</div>
+          <div id="activeDealsList">
+            <p style="font-size:13px; color:#777; text-align:center; padding:15px 0;">বর্তমানে আপনার কোনো সক্রিয় এসক্রো ডিল নেই।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Terms -->
+      <div id="rulesTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">⚖️ এসক্রো পলিসি ও পেমেন্ট নিয়মাবলী</div>
+          <p style="font-size:12px; color:#444; line-height:1.6;">
+            ১. <strong>পেমেন্ট মাধ্যম:</strong> কাজের ১০% এসক্রো ফি অ্যাডমিনের নির্দিষ্ট STC Pay বা ব্যাংক অ্যাকাউন্টে পাঠিয়ে কনফার্ম করতে হবে।<br><br>
+            ২. <strong>রিফান্ড গ্যারান্টি:</strong> কাজ অসম্পূর্ণ বা বাতিল হলে লক করা ফি সম্পূর্ণ রিফান্ড করা হবে।<br><br>
+            ৩. <strong>আইডি সুরক্ষা:</strong> জালিয়াতি রোধে আকামা ও পাসপোর্ট যাচাই বাধ্যতামূলক।
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- App Footer -->
+    <div class="app-footer">
+      Saudi Deal Hub (সৌদি ডিল হাব) | <span class="admin-toggle-btn" onclick="toggleAdminMode()">অ্যাডমিন মোড</span>
+    </div>
+  </div>
+
+  <script>
+    let totalAdminProfit = 0;
+
+    // Check Login and Admin Mode on Load
+    window.onload = function() {
+      const savedPhone = localStorage.getItem('user_phone');
+      const isAdmin = localStorage.getItem('is_admin_device');
+
+      if (isAdmin === 'true') {
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('adminVisitorBar').style.display = 'block';
+        document.getElementById('adminWalletSection').style.display = 'block';
+      } else if (savedPhone) {
+        document.getElementById('loginModal').style.display = 'none';
+        trackRealVisitor();
+      } else {
+        document.getElementById('loginModal').style.display = 'flex';
+      }
+    };
+
+    function saveUserPhone(e) {
+      e.preventDefault();
+      const phone = document.getElementById('userPhoneInput').value;
+      if (phone && phone.trim() !== '') {
+        localStorage.setItem('user_phone', phone.trim());
+        document.getElementById('loginModal').style.display = 'none';
+        trackRealVisitor();
+      }
+    }
+
+    function trackRealVisitor() {
+      if (localStorage.getItem('is_admin_device') === 'true') return;
+
+      let visits = localStorage.getItem('real_unique_visits') || 1;
+      if (!sessionStorage.getItem('session_counted')) {
+        visits = parseInt(visits) + 1;
+        localStorage.setItem('real_unique_visits', visits);
+        sessionStorage.setItem('session_counted', 'true');
+      }
+      const vEl = document.getElementById('visitorCount');
+      if(vEl) vEl.innerText = visits;
+    }
+
+    function toggleAdminMode() {
+      const pass = prompt("অ্যাডমিন প্যানেলে প্রবেশ সিক্রেট কী (Secret Pass) দিন:");
+      if (pass === '1234') {
+        localStorage.setItem('is_admin_device', 'true');
+        alert("অ্যাডমিন মোড সক্রিয় হয়েছে! এখন থেকে অ্যাডমিন ওয়ালেট ও ভিজিটর কাউন্ট দৃশ্যমান হবে।");
+        location.reload();
+      } else if (pass !== null) {
+        alert("ভুল সিক্রেট কোড!");
+      }
+    }
+
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+
+    function handlePostJob(e) {
+      e.preventDefault();
+      const title = document.getElementById('jobTitle').value;
+      const city = document.getElementById('jobCity').value;
+      const budget = parseFloat(document.getElementById('jobBudget').value);
+      const ownerID = document.getElementById('ownerID').value;
+      const desc = document.getElementById('jobDesc').value;
+      const fee = (budget * 0.10).toFixed(2);
+
+      const noJobMsg = document.getElementById('noJobMsg');
+      if (noJobMsg) noJobMsg.remove();
+
+      const newJobCard = `
+        <div class="card">
+          <span class="status-badge status-open">খোলা আছে</span>
+          <div class="card-title">${title}</div>
+          <div class="card-subtitle">📍 শহর: ${city} | পোস্টকারী আইডি: ${ownerID.substring(0, 4)}***</div>
+          <div class="id-tag">✅ ভেরিফাইড আইডি ক্লেইমড</div><br>
+          
+          <div class="price-tag">💵 মাসিক বেতন / বাজেট: ${budget} রিয়াল</div>
+          <div class="fee-info">📌 এসক্রো ফান্ড লক চার্জ (১০%): ${fee} রিয়াল (অ্যাডমিন STC Pay তে পেমেন্ট করতে হবে)</div>
+          
+          <p style="font-size:13px; color:#555; margin-bottom:10px;">${desc}</p>
+          <button class="btn-deal" onclick="promptApplicantID('${title}', ${budget})">এসক্রো ফান্ড লক করে কাজ নিন 🤝</button>
+        </div>
+      `;
+
+      document.getElementById('jobList').insertAdjacentHTML('afterbegin', newJobCard);
+      alert('আপনার কাজ এবং বেতনের বিবরণসহ বিজ্ঞাপন সফলভাবে লাইভ হয়েছে!');
+      document.getElementById('jobForm').reset();
+      switchTab('jobsTab', document.querySelectorAll('.tab-btn')[0]);
+    }
+
+    function promptApplicantID(title, budget) {
+      const applicantID = prompt("নিরাপত্তার স্বার্থে আপনার ১০ ডিজিটের আকামা অথবা পাসপোর্ট নম্বর দিন:");
+      if (applicantID && applicantID.trim() !== "") {
+        const escrowFee = (budget * 0.10).toFixed(2);
+        const confirmLock = confirm(`কাজটি নিশ্চিত করতে ১০% এসক্রো ফান্ড (${escrowFee} রিয়াল) অ্যাডমিনের অফিশিয়াল STC Pay নম্বরে পাঠিয়ে পেমেন্ট সম্পন্ন করতে হবে। আপনি কি রাজি আছেন?`);
+        if (confirmLock) {
+          startEscrowDeal(title, budget, applicantID.trim(), escrowFee);
+        }
+      } else if (applicantID !== null) {
+        alert("আকামা বা পাসপোর্ট নম্বর ছাড়া ডিল আবেদন করা সম্ভব নয়!");
+      }
+    }
+
+    function startEscrowDeal(title, budget, applicantID, escrowFee) {
+      const activeList = document.getElementById('activeDealsList');
+
+      const dealItem = `
+        <div class="card" style="border-left: 4px solid #d4af37;" id="dealCardItem">
+          <span class="status-badge status-escrow">ফান্ড লকড (এসক্রো)</span>
+          <div class="card-title">${title}</div>
+          <div class="price-tag">💵 বেতন: ${budget} রিয়াল</div>
+          <div class="fee-info">🔒 লককৃত এসক্রো ফান্ড: ${escrowFee} রিয়াল (১০%)</div>
+          <div class="id-tag">👤 কর্মী আইডি: ${applicantID}</div>
+          
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <button class="btn-main" style="background:#27ae60; font-size:12px; padding:8px;" onclick="completeEscrowDeal(this, ${escrowFee})">কাজ সম্পন্ন ✅</button>
+            <button class="btn-main" style="background:#c0392b; font-size:12px; padding:8px;" onclick="cancelEscrowDeal(this, ${escrowFee})">কাজ বাতিল / রিফান্ড ❌</button>
+          </div>
+        </div>
+      `;
+      activeList.innerHTML = dealItem;
+      alert(`এসক্রো ফান্ড প্রসেসিং শুরু হয়েছে! ১০% ফি (${escrowFee} রিয়াল) অ্যাডমিন কনফার্ম করার পর ডিল চূড়ান্ত হবে।`);
+      switchTab('dealsTab', document.querySelectorAll('.tab-btn')[2]);
+    }
+
+    function completeEscrowDeal(btnElement, escrowFee) {
+      totalAdminProfit += parseFloat(escrowFee);
+      const balanceEl = document.getElementById('adminBalance');
+      if (balanceEl) {
+        balanceEl.innerText = totalAdminProfit.toFixed(2) + ' রিয়াল';
+      }
+      
+      btnElement.parentElement.parentElement.innerHTML = `
+        <span class="status-badge" style="background:#e8f5e9; color:#2e7d32;">সম্পন্ন</span>
+        <div class="card-title">ডিল সফলভাবে সম্পন্ন হয়েছে</div>
+        <p style="font-size:12px; color:#2e7d32;">১০% সার্ভিস ফি (${escrowFee} রিয়াল) অ্যাডমিন ওয়ালেটে জমা হয়েছে এবং বাকি লেনদেন সম্পন্ন হয়েছে!</p>
+      `;
+      alert('শুভেচ্ছা! ডিল সফলভাবে শেষ হয়েছে এবং প্রফিট অ্যাডমিন ওয়ালেটে যুক্ত হয়েছে।');
+    }
+
+    function cancelEscrowDeal(btnElement, escrowFee) {
+      const confirmRefund = confirm(`কাজটি সম্পন্ন হয়নি। লককৃত ${escrowFee} রিয়াল কি কর্মীর অ্যাকাউন্টে রিফান্ড করে দেওয়া হবে?`);
+      if (confirmRefund) {
+        btnElement.parentElement.parentElement.innerHTML = `
+          <span class="status-badge" style="background:#ffebee; color:#c62828;">বাতিল ও রিফান্ডেড</span>
+          <div class="card-title">ডিল বাতিল করা হয়েছে</div>
+          <p style="font-size:12px; color:#c62828;">লককৃত ${escrowFee} রিয়াল সম্পূর্ণ রিফান্ড করে কর্মীর কাছে ফেরত দেওয়া হয়েছে।</p>
+        `;
+        alert('ডিল বাতিল করা হয়েছে এবং ফান্ড সফলভাবে রিফান্ড করা হয়েছে।');
+      }
+    }
+
+    function withdrawProfit() {
+      if (totalAdminProfit <= 0) {
+        alert('আপনার ওয়ালেটে বর্তমানে কোনো উইথড্রযোগ্য ব্যালেন্স নেই।');
+      } else {
+        alert(`আপনার ${totalAdminProfit.toFixed(2)} রিয়াল ক্যাশ-আউট রিকোয়েস্ট প্রসেস করা হচ্ছে!`);
+      }
+    }
+  </script>
+</body>
+</html>
