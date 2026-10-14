@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>সৌদি সার্ভিস ডিল | Saudi Service & Job Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+    body {
+      background-color: #f0f2f5;
+      color: #1c1e21;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    /* App Top Bar */
+    .app-header {
+      background: #124e37;
+      color: #ffffff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .app-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .app-header .tagline {
+      font-size: 10px;
+      color: #abf3d6;
+    }
+    .badge-safe {
+      background: #27ae60;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    /* Main Navigation Tabs */
+    .app-tabs {
+      display: flex;
+      background: #124e37;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 5px;
+      text-align: center;
+      color: #a3d9c3;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-btn.active {
+      color: #ffffff;
+      border-bottom-color: #f39c12;
+      background: rgba(255,255,255,0.05);
+    }
+    /* Content Area */
+    .content-area {
+      flex: 1;
+      padding: 15px;
+      padding-bottom: 80px;
+    }
+    /* Section Toggle */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Cards & Elements */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e4e6eb;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #124e37;
+      margin-bottom: 5px;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: #65676b;
+      margin-bottom: 10px;
+    }
+    .price-tag {
+      display: inline-block;
+      background: #eef9f3;
+      color: #124e37;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .status-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      float: right;
+      font-weight: 600;
+    }
+    .status-open { background: #e3f2fd; color: #1976d2; }
+    .status-deal { background: #fff8e1; color: #f57f17; }
+    .status-done { background: #e8f5e9; color: #388e3c; }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #124e37;
+    }
+    .btn-main {
+      width: 100%;
+      background: #124e37;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-deal {
+      background: #f39c12;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+    }
+    /* Guarantee Box */
+    .guarantee-box {
+      background: #fff8e7;
+      border: 1px dashed #f1c40f;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #7f8c8d;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    /* Developer Credit Footer */
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-top: 1px solid #e4e6eb;
+      padding: 10px;
+      text-align: center;
+      font-size: 11px;
+      color: #65676b;
+    }
+    .app-footer strong {
+      color: #124e37;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- App Header -->
+    <div class="app-header">
+      <div>
+        <h1>সৌদি ডিল হাব</h1>
+        <div class="tagline">নিরাপদ সার্ভিস ও জব মার্কেটপ্লেস</div>
+      </div>
+      <div class="badge-safe">🔒 ১০০% সুরক্ষিত ডিল</div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="app-tabs">
+      <div class="tab-btn active" onclick="switchTab('jobsTab', this)">📋 কাজ খুঁজুন</div>
+      <div class="tab-btn" onclick="switchTab('postTab', this)">➕ কাজ দিন (Post)</div>
+      <div class="tab-btn" onclick="switchTab('dealsTab', this)">🤝 ডিল ও গ্যারান্টি</div>
+    </div>
+
+    <div class="content-area">
+      
+      <!-- Tab 1: Job List for Workers -->
+      <div id="jobsTab" class="tab-content active">
+        <div class="guarantee-box">
+          🛡️ <strong>সুরক্ষিত ডিল মাধ্যম:</strong> কাজের চুক্তি অনুযায়ী উভয় পক্ষ আমাদের অ্যাপের মাধ্যমে কাজ জমা ও ডিল কনফার্ম করতে পারবেন।
+        </div>
+
+        <div id="jobList">
+          <!-- Sample Job Item -->
+          <div class="card">
+            <span class="status-badge status-open">খোলা আছে</span>
+            <div class="card-title">জিদ্দা কফি শপ বারিস্টা প্রয়োজন</div>
+            <div class="card-subtitle">📍 শহর: জেদ্দা | পোস্টকারী: আল-রাজি গ্রুপ</div>
+            <div class="price-tag">বাজেট: ২৫০০ রিয়াল / মাস</div>
+            <p style="font-size:13px; color:#555; margin-bottom:10px;">জরুরি ভিত্তিতে অভিজ্ঞতা সম্পন্ন বারিস্টা আবশ্যক। আকামা ট্রান্সফারের সুযোগ রয়েছে।</p>
+            <button class="btn-deal" onclick="startDeal('জিদ্দা কফি শপ বারিস্টা', '২৫০০ রিয়াল')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+          </div>
+
+          <div class="card">
+            <span class="status-badge status-open">খোলা আছে</span>
+            <div class="card-title">পার্সোনাল ড্রাইভার (রিয়াদ)</div>
+            <div class="card-subtitle">📍 শহর: রিয়াদ | পোস্টকারী: আবু ফাহাদ</div>
+            <div class="price-tag">বাজেট: ২০০০ রিয়াল</div>
+            <p style="font-size:13px; color:#555; margin-bottom:10px;">সৌদি লাইসেন্সধারী ড্রাইভার প্রয়োজন। বাসস্থান ও খাবার কোম্পানি বহন করবে।</p>
+            <button class="btn-deal" onclick="startDeal('পার্সোনাল ড্রাইভার (রিয়াদ)', '২০০০ রিয়াল')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Post Job / Project -->
+      <div id="postTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">নতুন কাজ বা প্রজেক্ট পোস্ট করুন</div>
+          <div class="card-subtitle">নিরাপদে সঠিক প্রবাসী কর্মী খুঁজে নিন</div>
+          
+          <form id="jobForm" onsubmit="handlePostJob(event)">
+            <div class="form-group">
+              <label>কাজের শিরোনাম</label>
+              <input type="text" id="jobTitle" placeholder="যেমন: কফি শপ বারিস্টা / ড্রাইভার" required>
+            </div>
+            <div class="form-group">
+              <label>সৌদির শহর</label>
+              <select id="jobCity">
+                <option value="রিয়াদ">রিয়াদ</option>
+                <option value="জেদ্দা">জেদ্দা / মক্কা</option>
+                <option value="তবুক">তবুক</option>
+                <option value="মদিনা">মদিনা</option>
+                <option value="দাম্মাম">দাম্মাম / পূর্ব প্রদেশ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>বাজেট / বেতন (রিয়াল)</label>
+              <input type="text" id="jobBudget" placeholder="যেমন: ২৫০০ রিয়াল" required>
+            </div>
+            <div class="form-group">
+              <label>কাজের বিবরণ</label>
+              <textarea id="jobDesc" rows="3" placeholder="কাজের শর্ত ও বিবরণ লিখুন..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>আপনার হোয়াটসঅ্যাপ নম্বর (ডিলের জন্য)</label>
+              <input type="text" id="clientPhone" placeholder="+966 50 000 0000" required>
+            </div>
+            <button type="submit" class="btn-main">কাজের বিজ্ঞাপন প্রকাশ করুন 🚀</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 3: Active Deals -->
+      <div id="dealsTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">ডিল ও চুক্তি ট্র্যাকিং (Escrow System)</div>
+          <div class="card-subtitle">কাজদাতা ও প্রার্থীর মধ্যস্থতাকারী হিসেবে প্ল্যাটফর্মটি কাজ করে</div>
+          <div id="activeDealsList">
+            <p style="font-size:13px; color:#777; text-align:center; padding:20px 0;">বর্তমানে আপনার কোনো সক্রিয় ডিল নেই। কাজ খুঁজে ডিল আবেদন করুন।</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- App Footer / Developer Credit -->
+    <div class="app-footer">
+      Developed by <strong>Esmail Hossain (দ্য শিমুল)</strong> | Saudi Probashi Network
+    </div>
+  </div>
+
+  <script>
+    // Switch Navigation Tabs
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+
+    // Handle New Job Post
+    function handlePostJob(e) {
+      e.preventDefault();
+      const title = document.getElementById('jobTitle').value;
+      const city = document.getElementById('jobCity').value;
+      const budget = document.getElementById('jobBudget').value;
+      const desc = document.getElementById('jobDesc').value;
+
+      const newJobCard = `
+        <div class="card">
+          <span class="status-badge status-open">খোলা আছে</span>
+          <div class="card-title">${title}</div>
+          <div class="card-subtitle">📍 শহর: ${city} | পোস্টকারী: ইউজার</div>
+          <div class="price-tag">বাজেট: ${budget}</div>
+          <p style="font-size:13px; color:#555; margin-bottom:10px;">${desc}</p>
+          <button class="btn-deal" onclick="startDeal('${title}', '${budget}')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+        </div>
+      `;
+
+      document.getElementById('jobList').insertAdjacentHTML('afterbegin', newJobCard);
+      alert('আপনার কাজের পোস্টটি সফলভাবে লাইভ হয়েছে!');
+      document.getElementById('jobForm').reset();
+      switchTab('jobsTab', document.querySelectorAll('.tab-btn')[0]);
+    }
+
+    // Start Escrow Deal
+    function startDeal(title, budget) {
+      const activeList = document.getElementById('activeDealsList');
+      const dealItem = `
+        <div class="card" style="border-left: 4px solid #f39c12;">
+          <span class="status-badge status-deal">প্রসেসিং ডিল</span>
+          <div class="card-title">${title}</div>
+          <div class="price-tag">মূল্য: ${budget}</div>
+          <p style="font-size:12px; color:#555; margin-bottom:10px;">
+            শর্তাবলী এবং পেমেন্ট রিলিজ আমাদের সেন্ট্রাল মিডিয়াম দ্বারা ডিল হচ্ছে।
+          </p>
+          <button class="btn-main" style="background:#27ae60; font-size:13px; padding:8px;" onclick="alert('কাজ সম্পন্ন করার পর অ্যাডমিন কর্তৃক ভেরিফাই করে পেমেন্ট রিলিজ করা হবে।')">কাজ সম্পন্ন মার্ক করুন ✅</button>
+        </div>
+      `;
+      activeList.innerHTML = dealItem;
+      alert('ডিল রিকোয়েস্ট জমা হয়েছে! "ডিল ও গ্যারান্টি" ট্যাবে প্রোগ্রেস দেখতে পাবেন।');
+      switchTab('dealsTab', document.querySelectorAll('.tab-btn')[2]);
+    }
+  </script>
+</body>
+</html>
