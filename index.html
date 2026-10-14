@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>সৌদি ডিল হাব | Saudi Service & Job Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+    body {
+      background-color: #f0f2f5;
+      color: #1c1e21;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    /* App Header */
+    .app-header {
+      background: #124e37;
+      color: #ffffff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .app-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .app-header .tagline {
+      font-size: 10px;
+      color: #abf3d6;
+    }
+    .badge-safe {
+      background: #27ae60;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    /* Navigation Tabs */
+    .app-tabs {
+      display: flex;
+      background: #124e37;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 5px;
+      text-align: center;
+      color: #a3d9c3;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-btn.active {
+      color: #ffffff;
+      border-bottom-color: #f39c12;
+      background: rgba(255,255,255,0.05);
+    }
+    .content-area {
+      flex: 1;
+      padding: 15px;
+      padding-bottom: 90px;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e4e6eb;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      position: relative;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #124e37;
+      margin-bottom: 5px;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: #65676b;
+      margin-bottom: 10px;
+    }
+    .price-tag {
+      display: inline-block;
+      background: #eef9f3;
+      color: #124e37;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .status-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      float: right;
+      font-weight: 600;
+    }
+    .status-open { background: #e3f2fd; color: #1976d2; }
+    .status-deal { background: #fff8e1; color: #f57f17; }
+
+    /* Commission Box */
+    .fee-info {
+      font-size: 11px;
+      color: #e67e22;
+      font-weight: 600;
+      background: #fef5e7;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #124e37;
+    }
+    .btn-main {
+      width: 100%;
+      background: #124e37;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-deal {
+      background: #f39c12;
+      color: #fff;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+    .btn-report {
+      background: transparent;
+      color: #e74c3c;
+      border: none;
+      font-size: 11px;
+      cursor: pointer;
+      margin-top: 8px;
+      text-decoration: underline;
+    }
+
+    /* Disclaimer & Rules Box */
+    .disclaimer-box {
+      background: #fff3cd;
+      border: 1px solid #ffe8a1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #856404;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .disclaimer-box h4 {
+      font-size: 13px;
+      margin-bottom: 5px;
+      color: #856404;
+    }
+
+    /* Footer Credit */
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-top: 1px solid #e4e6eb;
+      padding: 10px;
+      text-align: center;
+      font-size: 11px;
+      color: #65676b;
+      z-index: 99;
+    }
+    .app-footer strong {
+      color: #124e37;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- App Header -->
+    <div class="app-header">
+      <div>
+        <h1>সৌদি ডিল হাব</h1>
+        <div class="tagline">নিরাপদ সার্ভিস ও প্রফিট মার্কেটপ্লেস</div>
+      </div>
+      <div class="badge-safe">🛡️ মিডিয়েশন প্ল্যাটফর্ম</div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="app-tabs">
+      <div class="tab-btn active" onclick="switchTab('jobsTab', this)">📋 কাজ খুঁজুন</div>
+      <div class="tab-btn" onclick="switchTab('postTab', this)">➕ কাজ দিন</div>
+      <div class="tab-btn" onclick="switchTab('dealsTab', this)">🤝 ডিল ও কমিশন</div>
+      <div class="tab-btn" onclick="switchTab('rulesTab', this)">⚖️ শর্তাবলী</div>
+    </div>
+
+    <div class="content-area">
+      
+      <!-- Tab 1: Job List -->
+      <div id="jobsTab" class="tab-content active">
+        <div class="disclaimer-box">
+          ⚠️ <strong>সতর্কতা:</strong> কোনো কাজ শুরু করার আগে নিজ দায়িত্বে আকামা/আইডি ভেরিফাই করুন। অগ্রিম টাকা লেনদেন থেকে বিরত থাকুন।
+        </div>
+
+        <div id="jobList">
+          <div class="card">
+            <span class="status-badge status-open">খোলা আছে</span>
+            <div class="card-title">জেদ্দা কফি শপ বারিস্টা প্রয়োজন</div>
+            <div class="card-subtitle">📍 শহর: জেদ্দা | পোস্টকারী: আল-রাজি গ্রুপ</div>
+            <div class="price-tag">বাজেট: ২৫০০ রিয়াল / মাস</div>
+            <div class="fee-info">💡 ডিল সম্পন্ন হলে প্ল্যাটফর্ম সার্ভিস চার্জ: ৫%</div>
+            <p style="font-size:13px; color:#555; margin-bottom:10px;">জরুরি ভিত্তিতে অভিজ্ঞতা সম্পন্ন বারিস্টা আবশ্যক। আকামা ট্রান্সফারের সুযোগ রয়েছে।</p>
+            <button class="btn-deal" onclick="startDeal('জেদ্দা কফি শপ বারিস্টা', '২৫০০ রিয়াল')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+            <button class="btn-report" onclick="alert('রিপোর্ট জমা নেওয়া হয়েছে। অ্যাডমিন পোস্টটি রিভিউ করবে।')">🚩 ভুয়া পোস্ট রিপোর্ট করুন</button>
+          </div>
+
+          <div class="card">
+            <span class="status-badge status-open">খোলা আছে</span>
+            <div class="card-title">পার্সোনাল ড্রাইভার (রিয়াদ)</div>
+            <div class="card-subtitle">📍 শহর: রিয়াদ | পোস্টকারী: আবু ফাহাদ</div>
+            <div class="price-tag">বাজেট: ২০০০ রিয়াল</div>
+            <div class="fee-info">💡 ডিল সম্পন্ন হলে প্ল্যাটফর্ম সার্ভিস চার্জ: ৫%</div>
+            <p style="font-size:13px; color:#555; margin-bottom:10px;">সৌদি লাইসেন্সধারী ড্রাইভার প্রয়োজন। বাসস্থান ও খাবার কোম্পানি বহন করবে।</p>
+            <button class="btn-deal" onclick="startDeal('পার্সোনাল ড্রাইভার (রিয়াদ)', '২০০০ রিয়াল')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+            <button class="btn-report" onclick="alert('রিপোর্ট জমা নেওয়া হয়েছে। অ্যাডমিন পোস্টটি রিভিউ করবে।')">🚩 ভুয়া পোস্ট রিপোর্ট করুন</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Post Job -->
+      <div id="postTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">নতুন কাজ পোস্ট করুন</div>
+          <div class="card-subtitle">সঠিক ও দক্ষ প্রবাসী কর্মী খুঁজে নিন</div>
+          
+          <form id="jobForm" onsubmit="handlePostJob(event)">
+            <div class="form-group">
+              <label>কাজের শিরোনাম</label>
+              <input type="text" id="jobTitle" placeholder="যেমন: কফি শপ বারিস্টা / ড্রাইভার" required>
+            </div>
+            <div class="form-group">
+              <label>সৌদির শহর</label>
+              <select id="jobCity">
+                <option value="রিয়াদ">রিয়াদ</option>
+                <option value="জেদ্দা">জেদ্দা / মাক্কাহ</option>
+                <option value="তবুক">তবুক</option>
+                <option value="মদিনা">মদিনা</option>
+                <option value="দাম্মাম">দাম্মাম / পূর্ব প্রদেশ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>বাজেট / বেতন (রিয়াল)</label>
+              <input type="text" id="jobBudget" placeholder="যেমন: ২৫০০ রিয়াল" required>
+            </div>
+            <div class="form-group">
+              <label>কাজের বিবরণ</label>
+              <textarea id="jobDesc" rows="3" placeholder="কাজের শর্তাবলি লিখুন..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>আপনার হোয়াটসঅ্যাপ নম্বর</label>
+              <input type="text" id="clientPhone" placeholder="+966 50 000 0000" required>
+            </div>
+            <button type="submit" class="btn-main">কাজের বিজ্ঞাপন প্রকাশ করুন 🚀</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 3: Active Deals & Profit System -->
+      <div id="dealsTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">ডিল ও প্ল্যাটফর্ম সার্ভিস চার্জ (Profit Fee)</div>
+          <div class="card-subtitle">নিরাপদ ডিলিং মাধ্যম হিসেবে প্রসেসিং চার্জ প্রযোজ্য</div>
+          
+          <div class="disclaimer-box" style="background:#e8f8f5; border-color:#a3e4d7; color:#117a65;">
+            💰 <strong>প্ল্যাটফর্ম প্রফিট রুল:</strong> ডিল সফলভাবে সম্পন্ন হওয়ার পর মোট বাজেটের <strong>৫% থেকে ১০%</strong> অ্যাপ সার্ভিস ফি হিসেবে জমা হবে।
+          </div>
+
+          <div id="activeDealsList">
+            <p style="font-size:13px; color:#777; text-align:center; padding:15px 0;">বর্তমানে আপনার কোনো সক্রিয় ডিল নেই।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Terms & Disclaimer (আইনি সুরক্ষা) -->
+      <div id="rulesTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">⚖️ আইনি শর্তাবলী ও দায়মুক্তি (Disclaimer)</div>
+          <p style="font-size:12px; color:#444; line-height:1.6; margin-bottom:10px;">
+            ১. <strong>যোগাযোগের মাধ্যম:</strong> 'সৌদি ডিল হাব' কেবল প্রবাসী কর্মী ও কাজদাতাদের মধ্যে যোগাযোগের একটি ডিজিটাল মাধ্যম।<br><br>
+            ২. <strong>আইনি দায়ভার:</strong> কোনো ব্যবহারকারীর ব্যক্তিগত অর্থ লেনদেন, আকামা/ভিসার বৈধতা বা চুক্তিভঙ্গের দায়িত্ব প্ল্যাটফর্ম বা এর ডেভেলপার বহন করবে না।<br><br>
+            ৩. <strong>অর্থ নিরাপত্তা:</strong> কোনো কাজ যাচাই না করে বা চুক্তি ব্যতিরেকে কাউকে ব্যক্তিগতভাবে অগ্রিম অর্থ প্রদান করবেন না।<br><br>
+            ৪. <strong>প্রতারণা প্রতিরোধ:</strong> কোনো ভুয়া নিয়োগকারী বা ভুয়া প্রার্থীর তথ্য দেখতে পেলে তাৎক্ষণিক 'Report' করার অনুরোধ করা হচ্ছে।
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- App Footer -->
+    <div class="app-footer">
+      Developed by <strong>Esmail Hossain (দ্য শিমুল)</strong> | Saudi Probashi Network
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+
+    function handlePostJob(e) {
+      e.preventDefault();
+      const title = document.getElementById('jobTitle').value;
+      const city = document.getElementById('jobCity').value;
+      const budget = document.getElementById('jobBudget').value;
+      const desc = document.getElementById('jobDesc').value;
+
+      const newJobCard = `
+        <div class="card">
+          <span class="status-badge status-open">খোলা আছে</span>
+          <div class="card-title">${title}</div>
+          <div class="card-subtitle">📍 শহর: ${city} | পোস্টকারী: ইউজার</div>
+          <div class="price-tag">বাজেট: ${budget}</div>
+          <div class="fee-info">💡 ডিল সম্পন্ন হলে প্ল্যাটফর্ম সার্ভিস চার্জ: ৫%</div>
+          <p style="font-size:13px; color:#555; margin-bottom:10px;">${desc}</p>
+          <button class="btn-deal" onclick="startDeal('${title}', '${budget}')">চুক্তি/ডিল আবেদন করুন 🤝</button>
+          <button class="btn-report" onclick="alert('রিপোর্ট জমা নেওয়া হয়েছে।')">🚩 ভুয়া পোস্ট রিপোর্ট করুন</button>
+        </div>
+      `;
+
+      document.getElementById('jobList').insertAdjacentHTML('afterbegin', newJobCard);
+      alert('আপনার কাজের পোস্টটি সফলভাবে লাইভ হয়েছে!');
+      document.getElementById('jobForm').reset();
+      switchTab('jobsTab', document.querySelectorAll('.tab-btn')[0]);
+    }
+
+    function startDeal(title, budget) {
+      const activeList = document.getElementById('activeDealsList');
+      const dealItem = `
+        <div class="card" style="border-left: 4px solid #f39c12;">
+          <span class="status-badge status-deal">প্রসেসিং ডিল</span>
+          <div class="card-title">${title}</div>
+          <div class="price-tag">মূল্য: ${budget}</div>
+          <div class="fee-info">অ্যাডমিন প্রফিট/কমিশন: ৫% (নিয়োগকর্তা বা কর্মী কর্তৃক প্রসেসড)</div>
+          <p style="font-size:12px; color:#555; margin-bottom:10px;">
+            শর্তাবলী এবং পেমেন্ট ভেরিফিকেশন মিডিয়েশন টিম দ্বারা ডিল হচ্ছে।
+          </p>
+          <button class="btn-main" style="background:#27ae60; font-size:13px; padding:8px;" onclick="alert('কাজ সফলভাবে সম্পন্ন হয়েছে! কমিশন বাদ দিয়ে মূল পেমেন্ট কনফার্ম করা হয়েছে।')">কাজ সম্পন্ন মার্ক করুন ✅</button>
+        </div>
+      `;
+      activeList.innerHTML = dealItem;
+      alert('ডিল রিকোয়েস্ট জমা হয়েছে! "ডিল ও কমিশন" ট্যাবে বিস্তারিত দেখতে পাবেন।');
+      switchTab('dealsTab', document.querySelectorAll('.tab-btn')[2]);
+    }
+  </script>
+</body>
+</html>
